@@ -1,11 +1,12 @@
+/* eslint-disable no-undef */
 const express = require('express');
 const app = express();
 const path = require('path');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+require('dotenv').config()
 
-const userRouter = require('./controllers/userControllers');
+const userRouter = require('./routes/userRoutes')
 
 const port = process.env.PORT || 8080;
 
@@ -19,6 +20,8 @@ mongoose
   .catch((err) => console.log(`Mongo Error: ${err}`));
 
 app.use(morgan('dev'));
+app.use(express.json())
+app.use(express.urlencoded({extended:false}))
 
 app.use('/api/v1/users', userRouter);
 

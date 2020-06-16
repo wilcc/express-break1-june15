@@ -1,9 +1,10 @@
-const bcrypt = require('bcrypjs');
+const bcrypt = require('bcryptjs');
+const User = require('../models/User')
 
 module.exports = {
   getAllUsers: (req, res) => {
-    User.find
-      .then((users) => {
+    User.find()
+    .then((users) => {
         return res.status(200).json(users);
       })
       .catch((err) => err);
@@ -81,7 +82,7 @@ module.exports = {
   },
   updateUser: (req, res) => {
     const id = req.params.id;
-    User.findById()
+    User.findById(id)
       .then((user) => {
         if (!user) {
           return res
